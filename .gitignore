@@ -1,0 +1,37 @@
+# ========== Unity Specific ========== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+*.aps
+*.unitypackage
+
+# ========== Visual Studio / JetBrains Rider ========== #
+.vscode/
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.sln.meta
+
+# ========== Mac OS / Windows / Linux ========== #
+.DS_Store
+._*
+.TemporaryItems/
+.Trashes/
+*.swp
+*.swo
+Thumbs.db
+desktop.ini
