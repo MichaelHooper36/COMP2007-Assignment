@@ -20,6 +20,8 @@ public class FPSController : MonoBehaviour
 
     public bool canMove = true;
 
+    static public bool dialogue = false;
+
     CharacterController characterController;
 
     void Start()
@@ -33,6 +35,10 @@ public class FPSController : MonoBehaviour
     void Update()
     {
         #region Handle Movement
+        if(!dialogue)
+        {
+            canMove = true;
+        }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
