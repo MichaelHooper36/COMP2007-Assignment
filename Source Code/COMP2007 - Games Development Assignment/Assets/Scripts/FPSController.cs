@@ -18,8 +18,7 @@ public class FPSController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
-    public bool canMove = true;
-
+    static public bool canMove = true;
     static public bool dialogue = false;
 
     CharacterController characterController;
@@ -35,10 +34,6 @@ public class FPSController : MonoBehaviour
     void Update()
     {
         #region Handle Movement
-        if(!dialogue)
-        {
-            canMove = true;
-        }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
