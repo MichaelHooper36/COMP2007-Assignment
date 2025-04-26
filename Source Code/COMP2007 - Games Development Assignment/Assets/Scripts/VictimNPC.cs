@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using TMPro;
 
-public class CarManNPC : MonoBehaviour
+public class VictimNPC : MonoBehaviour
 {
     public GameObject d_template;
     public GameObject d_text;
@@ -13,14 +13,14 @@ public class CarManNPC : MonoBehaviour
     int dialogue_lines = 0;
 
     public static List<string> dialogueLines = new List<string>();
-    
+
     // Start is called before the first frame update
     void Start()
     {
         if (dialogueLines.Count == 0)
         {
-            dialogueLines.Add("\"There's a dead man in front of my car.\"");
-            dialogueLines.Add("\"It wasn't me that killed him, I crashed my car before he died!\"");
+            dialogueLines.Add("The victim lies cold in front of a car...");
+            dialogueLines.Add("No wounds other than a single hole in his chest...");
         }
     }
 
@@ -43,7 +43,7 @@ public class CarManNPC : MonoBehaviour
         if (player_detection && FPSController.dialogue && Input.GetKeyDown(KeyCode.Return))
         {
             dialogue_lines++;
-            if(dialogue_lines >= dialogueLines.Count)
+            if (dialogue_lines >= dialogueLines.Count)
             {
                 dialogue_lines = 0;
                 FPSController.dialogue = false;

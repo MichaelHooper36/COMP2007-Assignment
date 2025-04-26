@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class VictimNPC : MonoBehaviour
+public class KnifeNPC : MonoBehaviour
 {
     public GameObject d_template;
     public GameObject d_text;
     public GameObject int_template;
     public bool player_detection = false;
     int dialogue_lines = 0;
+    public static bool knife_obtained = false;
 
     public static List<string> dialogueLines = new List<string>();
 
     // Start is called before the first frame update
     void Start()
     {
-        int_template.SetActive(false);
         if (dialogueLines.Count == 0)
         {
-            dialogueLines.Add("The victim lies cold in front of car...");
-            dialogueLines.Add("No wounds, except from a hole in his stomache...");
+            dialogueLines.Add("\"That man just got hit by a car!\"");
+            dialogueLines.Add("\"I can't believe this happened right on my street...\"");
         }
     }
 
@@ -57,8 +57,10 @@ public class VictimNPC : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.name == "PlayerBody")
+        {
             player_detection = true;
-        int_template.SetActive(true);
+            int_template.SetActive(true);
+        }
     }
     private void OnTriggerExit()
     {
