@@ -8,7 +8,11 @@ public class CarManNPC : MonoBehaviour
 {
     public GameObject d_template;
     public GameObject d_text;
+    public GameObject d_name;
+
     public GameObject int_template;
+    public GameObject tool_bar;
+    
     public bool player_detection = false;
     int dialogue_lines = 0;
 
@@ -30,6 +34,8 @@ public class CarManNPC : MonoBehaviour
         if (player_detection && Input.GetKeyDown(KeyCode.E) && !FPSController.dialogue)
         {
             int_template.SetActive(false);
+            tool_bar.SetActive(false);
+            d_name.GetComponent<TextMeshProUGUI>().text = "Ryan Gosling";
             d_template.SetActive(true);
             FPSController.dialogue = true;
             FPSController.canMove = false;
@@ -50,6 +56,7 @@ public class CarManNPC : MonoBehaviour
                 FPSController.canMove = true;
                 d_template.SetActive(false);
                 int_template.SetActive(true);
+                tool_bar.SetActive(true);
             }
         }
     }

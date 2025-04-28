@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Security.Cryptography;
 
-public class Gun : MonoBehaviour
+public class Knife : MonoBehaviour
 {
-    public GameObject gun;
+    public GameObject knife;
     public GameObject int_template;
     public GameObject tool_bar;
     public GameObject game_holder;
@@ -24,13 +25,13 @@ public class Gun : MonoBehaviour
     {
         if (player_detection && Input.GetKeyDown(KeyCode.E))
         {
-            gun.SetActive(false);
+            knife.SetActive(false);
             foreach (Transform child in item_list)
             {
                 TextMeshProUGUI textComp = child.GetComponent<TextMeshProUGUI>();
                 if (textComp != null && string.IsNullOrEmpty(textComp.text))
                 {
-                    textComp.text = "Gun";
+                    textComp.text = "Knife";
                     break;
                 }
             }
@@ -39,10 +40,11 @@ public class Gun : MonoBehaviour
                 tool_bar.SetActive(true);
             }
             int_template.SetActive(false);
-            CarManNPC.dialogueLines.Clear();
-            CarManNPC.dialogueLines.Add("\"What?! That's not possible!\"");
-            CarManNPC.dialogueLines.Add("\"Where did you find that gun?\"");
-            CarManNPC.dialogueLines.Add("\"Yes, it's mine. Although it doesn't matter where or how you found it, I haven't used it to kill anyone!\"");
+            KnifeNPC.dialogueLines.Clear();
+            KnifeNPC.dialogueLines.Add("\"You managed to find my conveniently placed kitchen knife!\"");
+            KnifeNPC.dialogueLines.Add("\"Thank you, I've been looking everywhere for it.\"");
+            KnifeNPC.dialogueLines.Add("...");
+            KnifeNPC.dialogueLines.Add("\"What do you mean \'it was found next to the victim\'?\"");
         }
     }
 
