@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.ComponentModel.Design;
 
 public class Gun : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class Gun : MonoBehaviour
                 tool_bar.SetActive(true);
             }
             int_template.SetActive(false);
+            Menu.gun_obtained = true;
             CarManNPC.dialogueLines.Clear();
             CarManNPC.dialogueLines.Add("\"What?! That's not possible!\"");
             CarManNPC.dialogueLines.Add("\"Where did you find that gun?\"");

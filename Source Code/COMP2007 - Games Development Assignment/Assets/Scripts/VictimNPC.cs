@@ -35,7 +35,7 @@ public class VictimNPC : MonoBehaviour
         {
             int_template.SetActive(false);
             tool_bar.SetActive(false);
-            d_name.GetComponent<TextMeshProUGUI>().text = "Harvey M";
+            d_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";
             d_template.SetActive(true);
             FPSController.dialogue = true;
             FPSController.canMove = false;

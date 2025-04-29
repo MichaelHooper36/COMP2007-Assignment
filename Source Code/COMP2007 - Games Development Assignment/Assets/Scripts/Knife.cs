@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Security.Cryptography;
+using System.ComponentModel.Design;
 
 public class Knife : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Knife : MonoBehaviour
                 tool_bar.SetActive(true);
             }
             int_template.SetActive(false);
+            Menu.knife_obtained = true;
             KnifeNPC.dialogueLines.Clear();
             KnifeNPC.dialogueLines.Add("\"You managed to find my conveniently placed kitchen knife!\"");
             KnifeNPC.dialogueLines.Add("\"Thank you, I've been looking everywhere for it.\"");

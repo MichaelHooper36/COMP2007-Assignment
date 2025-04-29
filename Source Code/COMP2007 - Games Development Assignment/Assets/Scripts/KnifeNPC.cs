@@ -34,7 +34,7 @@ public class KnifeNPC : MonoBehaviour
         {
             int_template.SetActive(false);
             tool_bar.SetActive(false);
-            d_name.GetComponent<TextMeshProUGUI>().text = "Jack S. Ripper";
+            d_name.GetComponent<TextMeshProUGUI>().text = "Jack D. Ripper";
             d_template.SetActive(true);
             FPSController.dialogue = true;
             FPSController.canMove = false;
