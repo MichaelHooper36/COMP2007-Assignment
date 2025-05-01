@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 using static System.Net.Mime.MediaTypeNames;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,10 +13,14 @@ public class Menu : MonoBehaviour
 {
     public GameObject main_menu;
     public GameObject solve_menu;
+    public GameObject settings_menu;
+
     public GameObject menu_reminder;
+    public GameObject current_suspect;
 
     public static bool gun_obtained = false;
     public static bool knife_obtained = false;
+    public static int ending = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +60,8 @@ public class Menu : MonoBehaviour
 
     public void OptionsButton()
     {
-
+        main_menu.SetActive(false);
+        settings_menu.SetActive(true);
     }
 
     public void QuitButton()
@@ -73,8 +79,26 @@ public class Menu : MonoBehaviour
     public void SuspectButton()
     {
         string button_name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-        switch(button_name)
-            case string
+        if (button_name == "Suspect Button 1")
+        {
+            current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Ryan Gosling";
+            ending = 1;
+        }
+        else if (button_name == "Suspect Button 2")
+        {
+            current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Jack D. Ripper";
+            ending = 2;
+        }
+        else if (button_name == "Suspect Button 3")
+        {
+            current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Harry Houdini";
+            ending = 3;
+        }
+        else if (button_name == "Suspect Button 4")
+        {
+            current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: You";
+            ending = 4;
+        }
     }
 
     public void ConfirmSuspicion()
@@ -85,6 +109,12 @@ public class Menu : MonoBehaviour
     public void BackFromSuspect()
     {
         solve_menu.SetActive(false);
+        main_menu.SetActive(true);
+    }
+
+    public void BackFromSettings()
+    {
+        settings_menu.SetActive(false);
         main_menu.SetActive(true);
     }
 }
