@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 using static System.Net.Mime.MediaTypeNames;
+using System.Security.Cryptography;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class Menu : MonoBehaviour
 {
+    public GameObject the_menus;
     public GameObject main_menu;
     public GameObject solve_menu;
     public GameObject settings_menu;
@@ -22,19 +25,30 @@ public class Menu : MonoBehaviour
     public GameObject current_suspect;
     public GameObject suspect_text;
 
+    public GameObject suspect_button_1;
+    public GameObject suspect_button_2;
+    public GameObject suspect_button_3;
+    public GameObject suspect_button_4;
+
     public static bool tutorial_on = true;
     public static bool menu_on = false;
     public static bool gun_obtained = false;
     public static bool knife_obtained = false;
+    public static bool letter_obtained = false;
     public static int ending = 0;
 
     public string final_verdict = "";
+    List<Transform> menu_list = new List<Transform>();
+
     // Start is called before the first frame update
     void Start()
     {
+        menu_list = new List<Transform>(the_menus.GetComponentsInChildren<Transform>());
+
         FPSController.canMove = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         tutorial_menu.SetActive(true);
     }
 
@@ -48,14 +62,21 @@ public class Menu : MonoBehaviour
             FPSController.canMove = true;
         }
 
-        if (!menu_on && Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            menu_on = true;
-            FPSController.canMove = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            menu_reminder.SetActive(false);
-            main_menu.SetActive(true);
+            if (menu_on)
+            {
+                ResumeButton();
+            }
+            else
+            {
+                menu_on = true;
+                FPSController.canMove = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                menu_reminder.SetActive(false);
+                main_menu.SetActive(true);
+            }
         }
     }
 
@@ -74,7 +95,19 @@ public class Menu : MonoBehaviour
             menu_reminder.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            FPSController.canMove = true;
+
+            foreach (Transform child in menu_list)
+            {
+                if (!child.gameObject.activeInHierarchy)
+                {
+                    FPSController.canMove = true;
+                }
+                else
+                {
+                    FPSController.canMove = false;
+                    break;
+                }
+            }
         }
     }
 
@@ -98,23 +131,23 @@ public class Menu : MonoBehaviour
 
     public void SuspectButton()
     {
-        string button_name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-        if (button_name == "Suspect Button 1")
+        GameObject selected_suspect = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        if (selected_suspect == suspect_button_1)
         {
             current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Ryan Gosling";
             ending = 1;
         }
-        else if (button_name == "Suspect Button 2")
+        else if (selected_suspect == suspect_button_2)
         {
             current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Jack D. Ripper";
             ending = 2;
         }
-        else if (button_name == "Suspect Button 3")
+        else if (selected_suspect == suspect_button_3)
         {
             current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: Harry Houdini";
             ending = 3;
         }
-        else if (button_name == "Suspect Button 4")
+        else if (selected_suspect == suspect_button_4)
         {
             current_suspect.GetComponent<TextMeshProUGUI>().text = "Current suspect: You";
             ending = 4;
@@ -123,6 +156,10 @@ public class Menu : MonoBehaviour
 
     public void AccuseSuspect()
     {
+        suspect_button_1.GetComponent<Button>().interactable = false;
+        suspect_button_2.GetComponent<Button>().interactable = false;
+        suspect_button_3.GetComponent<Button>().interactable = false;
+        suspect_button_4.GetComponent<Button>().interactable = false;
         confirm_menu.SetActive(true);
     }
 
@@ -147,7 +184,7 @@ public class Menu : MonoBehaviour
         switch(ending)
         {
             case 1:
-                final_verdict = "Ryan Gosling was not the killer";
+                final_verdict = "Ryan Gosling was not the killer, \n he is still a murderer.";
                 break;
             case 2:
                 final_verdict = "Jack D. Ripper was not the killer";
