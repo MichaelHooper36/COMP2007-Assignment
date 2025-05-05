@@ -12,6 +12,7 @@ public class Letter : MonoBehaviour
 
     public GameObject int_template;
     public GameObject tool_bar;
+    public GameObject eviction_button;
     public GameObject game_holder;
     public GameObject eviction_notice;
 
@@ -55,6 +56,7 @@ public class Letter : MonoBehaviour
             if (!tool_bar.activeInHierarchy)
             {
                 tool_bar.SetActive(true);
+                eviction_button.SetActive(true);
             }
 
             suspect_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";

@@ -28,6 +28,7 @@ public class Menu : MonoBehaviour
     public GameObject tutorial_menu;
     public GameObject confirm_menu;
     public GameObject verdict_menu;
+    public GameObject eviction_notice;
 
     public GameObject menu_reminder;
     public GameObject current_suspect;
@@ -40,6 +41,8 @@ public class Menu : MonoBehaviour
 
     public static bool tutorial_on = true;
     public static bool menu_on = false;
+    public static bool notice_on = false;
+
     public static bool gun_obtained = false;
     public static bool knife_obtained = false;
     public static bool letter_obtained = false;
@@ -86,6 +89,12 @@ public class Menu : MonoBehaviour
                 menu_reminder.SetActive(false);
                 main_menu.SetActive(true);
             }
+        }
+
+        if(notice_on && letter_obtained && Input.GetKey(KeyCode.Return))
+        {
+            eviction_notice.SetActive(false);
+            notice_on = false;
         }
     }
 
@@ -248,5 +257,11 @@ public class Menu : MonoBehaviour
     public void CancelButton()
     {
         confirm_menu.SetActive(false);
+    }
+
+    public void EvictionButton()
+    {
+        notice_on = true;
+        eviction_notice.SetActive(true);
     }
 }
