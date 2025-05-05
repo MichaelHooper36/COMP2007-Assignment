@@ -39,6 +39,8 @@ public class CarManNPC : MonoBehaviour
             d_template.SetActive(true);
             FPSController.dialogue = true;
             FPSController.canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (player_detection && FPSController.dialogue)
@@ -46,12 +48,14 @@ public class CarManNPC : MonoBehaviour
             d_text.GetComponent<TextMeshProUGUI>().text = dialogueLines[dialogue_lines];
         }
 
-        if (player_detection && FPSController.dialogue && Input.GetKeyDown(KeyCode.Return))
+        if (player_detection && FPSController.dialogue && (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0)))
         {
             dialogue_lines++;
             if(dialogue_lines >= dialogueLines.Count)
             {
                 dialogue_lines = 0;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 FPSController.dialogue = false;
                 FPSController.canMove = true;
                 d_template.SetActive(false);
@@ -73,5 +77,6 @@ public class CarManNPC : MonoBehaviour
     {
         player_detection = false;
         int_template.SetActive(false);
+        FPSController.dialogue = false;
     }
 }

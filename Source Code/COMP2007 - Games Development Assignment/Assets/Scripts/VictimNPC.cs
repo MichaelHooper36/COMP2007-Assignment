@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using TMPro;
+using System.ComponentModel.Design;
 
 public class VictimNPC : MonoBehaviour
 {
@@ -35,10 +36,20 @@ public class VictimNPC : MonoBehaviour
         {
             int_template.SetActive(false);
             tool_bar.SetActive(false);
-            d_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";
+            if (Menu.letter_obtained == true)
+            {
+                d_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";
+            }
+            else
+            {
+                d_name.GetComponent<TextMeshProUGUI>().text = "???";
+            }
             d_template.SetActive(true);
+
             FPSController.dialogue = true;
             FPSController.canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (player_detection && FPSController.dialogue)
@@ -46,14 +57,17 @@ public class VictimNPC : MonoBehaviour
             d_text.GetComponent<TextMeshProUGUI>().text = dialogueLines[dialogue_lines];
         }
 
-        if (player_detection && FPSController.dialogue && Input.GetKeyDown(KeyCode.Return))
+        if (player_detection && FPSController.dialogue && (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0)))
         {
             dialogue_lines++;
             if (dialogue_lines >= dialogueLines.Count)
             {
                 dialogue_lines = 0;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 FPSController.dialogue = false;
                 FPSController.canMove = true;
+
                 d_template.SetActive(false);
                 int_template.SetActive(true);
                 tool_bar.SetActive(true);
@@ -73,5 +87,6 @@ public class VictimNPC : MonoBehaviour
     {
         player_detection = false;
         int_template.SetActive(false);
+        FPSController.dialogue = false;
     }
 }

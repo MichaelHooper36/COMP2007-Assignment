@@ -43,10 +43,10 @@ public class Knife : MonoBehaviour
             int_template.SetActive(false);
             Menu.knife_obtained = true;
             KnifeNPC.dialogueLines.Clear();
-            KnifeNPC.dialogueLines.Add("\"You managed to find my conveniently placed kitchen knife!\"");
-            KnifeNPC.dialogueLines.Add("\"Thank you, I've been looking everywhere for it.\"");
+            KnifeNPC.dialogueLines.Add("\"You managed to find my conveniently placed kitchen knife.\"");
+            KnifeNPC.dialogueLines.Add("\"Thank you, I've been looking everywhere for it!\"");
             KnifeNPC.dialogueLines.Add("...");
-            KnifeNPC.dialogueLines.Add("\"What do you mean \'it was found next to the victim\'?\"");
+            KnifeNPC.dialogueLines.Add("\"What do you mean \'it was found next to the victim?\'\"");
         }
     }
 

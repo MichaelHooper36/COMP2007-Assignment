@@ -9,10 +9,13 @@ using System.Runtime.InteropServices;
 public class Letter : MonoBehaviour
 {
     public GameObject letter;
+
     public GameObject int_template;
     public GameObject tool_bar;
     public GameObject game_holder;
     public GameObject eviction_notice;
+
+    public GameObject suspect_name;
 
     public bool player_detection = false;
 
@@ -54,6 +57,7 @@ public class Letter : MonoBehaviour
                 tool_bar.SetActive(true);
             }
 
+            suspect_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";
             eviction_notice.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

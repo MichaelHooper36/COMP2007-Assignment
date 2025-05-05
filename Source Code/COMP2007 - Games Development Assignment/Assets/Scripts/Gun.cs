@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour
             CarManNPC.dialogueLines.Clear();
             CarManNPC.dialogueLines.Add("\"What?! That's not possible!\"");
             CarManNPC.dialogueLines.Add("\"Where did you find that gun?\"");
-            CarManNPC.dialogueLines.Add("\"Yes, it's mine. Although it doesn't matter where or how you found it, I haven't used it to kill anyone!\"");
+            CarManNPC.dialogueLines.Add("\"Yes, it's mine. It doesn't matter where or how you found it, though. I haven't used it to kill anyone!\"");
         }
     }
 

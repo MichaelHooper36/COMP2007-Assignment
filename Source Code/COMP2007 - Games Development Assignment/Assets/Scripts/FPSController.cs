@@ -22,10 +22,20 @@ public class FPSController : MonoBehaviour
     static public bool dialogue = false;
 
     CharacterController characterController;
+    public static AudioSource background_music;
+
+    void Awake()
+    {
+        characterController = GetComponent<CharacterController>();
+        background_music = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        if (!background_music.isPlaying)
+        {
+            background_music.Play();
+        }
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -69,5 +79,16 @@ public class FPSController : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
         #endregion
+
+        if (dialogue)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }
