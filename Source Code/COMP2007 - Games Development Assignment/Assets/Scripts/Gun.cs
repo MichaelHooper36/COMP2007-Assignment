@@ -38,6 +38,7 @@ public class Gun : MonoBehaviour
             if (!tool_bar.activeInHierarchy)
             {
                 tool_bar.SetActive(true);
+                Menu.tool_bar_active = true;
             }
             int_template.SetActive(false);
             Menu.gun_obtained = true;

@@ -60,7 +60,10 @@ public class CarManNPC : MonoBehaviour
                 FPSController.canMove = true;
                 d_template.SetActive(false);
                 int_template.SetActive(true);
-                tool_bar.SetActive(true);
+                if (Menu.tool_bar_active)
+                {
+                    tool_bar.SetActive(true);
+                }
             }
         }
     }

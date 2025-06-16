@@ -29,6 +29,7 @@ public class Menu : MonoBehaviour
     public GameObject confirm_menu;
     public GameObject verdict_menu;
     public GameObject eviction_notice;
+    public GameObject tool_bar;
 
     public GameObject menu_reminder;
     public GameObject current_suspect;
@@ -46,6 +47,7 @@ public class Menu : MonoBehaviour
     public static bool gun_obtained = false;
     public static bool knife_obtained = false;
     public static bool letter_obtained = false;
+    public static bool tool_bar_active = false;
     public static int ending = 0;
 
     public string final_verdict = "";
@@ -61,6 +63,7 @@ public class Menu : MonoBehaviour
         Cursor.visible = false;
 
         tutorial_menu.SetActive(true);
+        ReorderMenu(tutorial_menu);
     }
 
     // Update is called once per frame
@@ -68,9 +71,14 @@ public class Menu : MonoBehaviour
     {
         if (tutorial_on && Input.GetKey(KeyCode.Return))
         {
-            tutorial_on = false;
+            tutorial_on = false; 
             tutorial_menu.SetActive(false);
-            FPSController.canMove = true;
+
+            if (!menu_on)
+            {
+                FPSController.dialogue = false;
+                FPSController.canMove = true;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Escape))
@@ -84,9 +92,8 @@ public class Menu : MonoBehaviour
                 menu_on = true;
                 FPSController.dialogue = true;
                 FPSController.canMove = false;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
                 menu_reminder.SetActive(false);
+                ReorderMenu(main_menu);
                 main_menu.SetActive(true);
             }
         }
@@ -95,6 +102,11 @@ public class Menu : MonoBehaviour
         {
             eviction_notice.SetActive(false);
             notice_on = false;
+            if(!menu_on)
+            {
+                FPSController.dialogue = false;
+                FPSController.canMove = true;
+            }
         }
     }
 
@@ -109,12 +121,17 @@ public class Menu : MonoBehaviour
     {
         main_menu.SetActive(false);
         solve_menu.SetActive(true);
+        ReorderMenu(solve_menu);
     }
 
     public void ResumeButton()
     {
         if (menu_on)
         {
+            menu_on = false;
+            main_menu.SetActive(false);
+            settings_menu.SetActive(false);
+            solve_menu.SetActive(false);
 
             bool a_child_is_alive = false;
             foreach (Transform child in menu_list)
@@ -129,9 +146,7 @@ public class Menu : MonoBehaviour
 
             if (!a_child_is_alive)
             {
-                menu_on = false;
                 FPSController.dialogue = false;
-                main_menu.SetActive(false);
                 menu_reminder.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -144,6 +159,7 @@ public class Menu : MonoBehaviour
     {
         main_menu.SetActive(false);
         settings_menu.SetActive(true);
+        ReorderMenu(settings_menu);
     }
 
     public void QuitButton()
@@ -192,11 +208,15 @@ public class Menu : MonoBehaviour
 
     public void AccuseSuspect()
     {
-        suspect_button_1.GetComponent<Button>().interactable = false;
-        suspect_button_2.GetComponent<Button>().interactable = false;
-        suspect_button_3.GetComponent<Button>().interactable = false;
-        suspect_button_4.GetComponent<Button>().interactable = false;
-        confirm_menu.SetActive(true);
+        if(ending != 0)
+        {
+            suspect_button_1.GetComponent<Button>().interactable = false;
+            suspect_button_2.GetComponent<Button>().interactable = false;
+            suspect_button_3.GetComponent<Button>().interactable = false;
+            suspect_button_4.GetComponent<Button>().interactable = false;
+            confirm_menu.SetActive(true);
+            ReorderMenu(confirm_menu);
+        }
     }
 
     public void BackFromSuspect()
@@ -207,12 +227,14 @@ public class Menu : MonoBehaviour
         }
         solve_menu.SetActive(false);
         main_menu.SetActive(true);
+        ReorderMenu(main_menu);
     }
 
     public void BackFromSettings()
     {
         settings_menu.SetActive(false);
         main_menu.SetActive(true);
+        ReorderMenu(main_menu);
     }
 
     public void ConfirmButton()
@@ -252,10 +274,15 @@ public class Menu : MonoBehaviour
         confirm_menu.SetActive(false);
         solve_menu.SetActive(false);
         verdict_menu.SetActive(true);
+        ReorderMenu(verdict_menu);
     }
 
     public void CancelButton()
     {
+        suspect_button_1.GetComponent<Button>().interactable = true;
+        suspect_button_2.GetComponent<Button>().interactable = true;
+        suspect_button_3.GetComponent<Button>().interactable = true;
+        suspect_button_4.GetComponent<Button>().interactable = true;
         confirm_menu.SetActive(false);
     }
 
@@ -263,5 +290,17 @@ public class Menu : MonoBehaviour
     {
         notice_on = true;
         eviction_notice.SetActive(true);
+        ReorderMenu(eviction_notice);
+    }
+
+    public void OnEnable()
+    {
+        transform.SetAsLastSibling();
+        tool_bar.transform.SetAsLastSibling();
+    }
+
+    public void ReorderMenu(GameObject menu)
+    {
+        menu.transform.SetAsLastSibling();
     }
 }

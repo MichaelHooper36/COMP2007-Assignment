@@ -34,8 +34,7 @@ public class Letter : MonoBehaviour
         if (player_detection && Input.GetKeyDown(KeyCode.E))
         {
             FPSController.canMove = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            FPSController.dialogue = true;
 
             int_template.SetActive(false);
             Menu.letter_obtained = true;
@@ -56,13 +55,13 @@ public class Letter : MonoBehaviour
             if (!tool_bar.activeInHierarchy)
             {
                 tool_bar.SetActive(true);
-                eviction_button.SetActive(true);
+                Menu.tool_bar_active = true;
             }
 
+            eviction_button.SetActive(true);
             suspect_name.GetComponent<TextMeshProUGUI>().text = "Harry Houdini";
             eviction_notice.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            FPSController.dialogue = false;
             FPSController.canMove = true;
             letter.SetActive(false);
         }
